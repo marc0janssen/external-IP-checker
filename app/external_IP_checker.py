@@ -14,7 +14,7 @@ class External_IP_Checker():
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             level=logging.INFO)
 
-        self.config_file = "./config/external_IP_checker.ini"
+        self.config_file = "/config/external_IP_checker.ini"
 
         try:
             with open(self.config_file, "r") as f:
@@ -59,8 +59,9 @@ class External_IP_Checker():
         for answer in answers:
             if answer.to_text() != externalIP:
                 self.message = self.userPushover.send_message(
-                    message=f'External IP {externalIP}. Found A record '
-                    f'{answer.to_text()}', sound="tugboat"
+                    message=f'URL {self.utl}\n'
+                    f'External IP {externalIP}.\n'
+                    f'A-record {answer.to_text()}', sound="tugboat"
                 )
 
 
