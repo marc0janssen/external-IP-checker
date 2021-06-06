@@ -55,7 +55,8 @@ class External_IP_Checker():
         externalIP = get('https://api.ipify.org').text
 
         # Get all A records
-        answers = dns.resolver.query(self.url, 'A')
+        resolver = dns.resolver.Resolver()
+        answers = resolver.resolve(self.url, 'A')
         for answer in answers:
             if answer.to_text() != externalIP:
                 self.message = self.userPushover.send_message(
