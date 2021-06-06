@@ -59,7 +59,7 @@ class External_IP_Checker():
         for answer in answers:
             if answer.to_text() != externalIP:
                 self.message = self.userPushover.send_message(
-                    message=f'URL {self.utl}\n'
+                    message=f'URL {self.url}\n'
                     f'External IP {externalIP}.\n'
                     f'A-record {answer.to_text()}', sound="tugboat"
                 )
