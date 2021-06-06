@@ -1,0 +1,71 @@
+import dns.resolver
+from requests import get
+import logging
+import configparser
+import shutil
+import sys
+from chump import Application
+
+
+class External_IP_Checker():
+    def __init__(self):
+
+        logging.basicConfig(
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            level=logging.INFO)
+
+        self.config_file = "./config/external_IP_checker.ini"
+
+        try:
+            with open(self.config_file, "r") as f:
+                f.close()
+            try:
+                self.config = configparser.ConfigParser()
+                self.config.read(self.config_file)
+
+                self.url = self.config['COMMON']['URL']
+
+                self.pushover_user_key = self.config['PUSHOVER']['USER_KEY']
+                self.pushover_token_api = self.config['PUSHOVER']['TOKEN_API']
+
+            except KeyError:
+                logging.error(
+                    "Can't get keys from INI file. "
+                    "Please check for mistakes."
+                )
+
+                sys.exit()
+
+        except IOError or FileNotFoundError:
+            logging.error(
+                f"Can't open file {self.config_file}, "
+                f"creating example INI file."
+            )
+
+            shutil.copyfile('/app/external_IP_checker.ini.example',
+                            '/config/external_IP_checker.ini.example')
+            sys.exit()
+
+    def run(self):
+        # Setting for PushOver
+        self.appPushover = Application(self.pushover_token_api)
+        self.userPushover = self.appPushover.get_user(self.pushover_user_key)
+
+        # Get current External IP
+        externalIP = get('https://api.ipify.org').text
+
+        # Get all A records
+        answers = dns.resolver.query(self.url, 'A')
+        for answer in answers:
+            if answer.to_text() != externalIP:
+                self.message = self.userPushover.send_message(
+                    message=f'External IP {externalIP}. Found A record '
+                    f'{answer.to_text()}', sound="tugboat"
+                )
+
+
+if __name__ == '__main__':
+
+    EIC = External_IP_Checker()
+    EIC.run()
+    EIC = None

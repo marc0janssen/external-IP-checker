@@ -1,0 +1,6 @@
+[COMMON]
+URL = domain.org
+
+[PUSHOVER]
+USER_KEY = xxxxxxxxxxxxxxx
+TOKEN_API = xxxxxxxxxxxxxxx
