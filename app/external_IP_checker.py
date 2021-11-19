@@ -73,8 +73,9 @@ class External_IP_Checker():
                 )
 
                 logging.error(
-                    f"Can't open file {self.config_file}, "
-                    f"creating example INI file."
+                    f'URL = {self.url}\n'
+                    f'External IP = {externalIP}\n'
+                    f'A-record = {answer.to_text()}'
                 )
 
 
