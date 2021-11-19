@@ -47,6 +47,13 @@ class External_IP_Checker():
             sys.exit()
 
     def run(self):
+
+        # Log a run
+        logging.info(
+            f"Executing External IP checker for "
+            f"{self.url}."
+        )
+
         # Setting for PushOver
         self.appPushover = Application(self.pushover_token_api)
         self.userPushover = self.appPushover.get_user(self.pushover_user_key)
@@ -63,6 +70,11 @@ class External_IP_Checker():
                     message=f'URL = {self.url}\n'
                     f'External IP = {externalIP}\n'
                     f'A-record = {answer.to_text()}', sound="tugboat"
+                )
+
+                logging.error(
+                    f"Can't open file {self.config_file}, "
+                    f"creating example INI file."
                 )
 
 
