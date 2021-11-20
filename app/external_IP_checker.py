@@ -48,12 +48,6 @@ class External_IP_Checker():
 
     def run(self):
 
-        # Log a run
-        logging.info(
-            f"Executing External IP checker for "
-            f"{self.url}."
-        )
-
         # Setting for PushOver
         self.appPushover = Application(self.pushover_token_api)
         self.userPushover = self.appPushover.get_user(self.pushover_user_key)
