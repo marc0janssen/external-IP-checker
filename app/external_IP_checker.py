@@ -1,3 +1,8 @@
+# Name: External IP Checker
+# Coder: Marco Janssen (twitter @marc0janssen)
+# date: 2021-11-21 11:57:46
+# update: 2021-11-21 11:57:50
+
 import dns.resolver
 from requests import get
 import logging
