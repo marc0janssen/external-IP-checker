@@ -27,6 +27,7 @@ class External_IP_Checker():
 
                 self.pushover_user_key = self.config['PUSHOVER']['USER_KEY']
                 self.pushover_token_api = self.config['PUSHOVER']['TOKEN_API']
+                self.pushover_sound = self.config['PUSHOVER']['SOUND']
 
             except KeyError:
                 logging.error(
@@ -63,7 +64,7 @@ class External_IP_Checker():
                 self.message = self.userPushover.send_message(
                     message=f'URL = {self.url}\n'
                     f'External IP = {externalIP}\n'
-                    f'A-record = {answer.to_text()}', sound="tugboat"
+                    f'A-record = {answer.to_text()}', sound=self.pushover_sound
                 )
 
                 logging.error(
