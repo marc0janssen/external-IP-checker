@@ -73,14 +73,14 @@ class External_IP_Checker():
                 )
 
                 logging.error(
-                    f'External IP and A-record mismatch!'
+                    f'Mismatch!'
                     f' - URL = {self.url}'
                     f' - External IP = {externalIP}'
                     f' - A-record = {answer.to_text()}'
                 )
             else:
                 logging.info(
-                    f'External IP and A-record matches.'
+                    f'Matches!'
                     f' - URL = {self.url}'
                     f' - External IP = {externalIP}'
                     f' - A-record = {answer.to_text()}'
