@@ -81,6 +81,8 @@ class External_IP_Checker():
                 with open(self.saved_ip, 'r') as file:
                     savedIP = file.readline().rstrip('\n')
 
+                print(f"opened daved IP {savedIP}")
+
             except IOError or FileNotFoundError:
 
                 savedIP = externalIP
