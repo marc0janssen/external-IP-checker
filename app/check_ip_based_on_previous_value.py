@@ -78,6 +78,8 @@ class External_IP_Checker():
 
             except IOError or FileNotFoundError:
 
+                savedIP = externalIP
+
                 try:
                     # Open a file in write mode
                     file = open(self.saved_ip, "w")
