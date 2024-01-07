@@ -101,9 +101,6 @@ class External_IP_Checker():
                     logging.error("An error occurred while saving the file.")
                     sys.exit()
 
-            print(f"-{savedIP}-")
-            print(f"-{externalIP}-")
-
             if savedIP != externalIP:
                 self.message = self.userPushover.send_message(
                     message=f'External IP has changed!!\n'
@@ -116,12 +113,12 @@ class External_IP_Checker():
                     f' - Previous IP = {savedIP}'
                     f' - Current IP = {externalIP}'
                 )
-            else:
-                logging.info(
-                    f'Mismatch!'
-                    f' - Previous IP = {savedIP}'
-                    f' - Current IP = {externalIP}'
-                )
+#            else:
+#                logging.info(
+#                    f'Match!'
+#                    f' - Previous IP = {savedIP}'
+#                    f' - Current IP = {externalIP}'
+#                )
         else:
             logging.error(
                 'Web service dit not responsed with IP address!'
