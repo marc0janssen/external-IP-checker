@@ -101,6 +101,9 @@ class External_IP_Checker():
                     logging.error("An error occurred while saving the file.")
                     sys.exit()
 
+            print(f"save = {savedIP}")
+            print(f"external = {externalIP}")
+
             if savedIP != externalIP:
                 self.message = self.userPushover.send_message(
                     message=f'External IP has changed!!\n'
