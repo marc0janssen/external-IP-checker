@@ -71,8 +71,13 @@ class External_IP_Checker():
 
         if self.is_valid_ip(externalIP):
 
+            print("is IP")
+
             # Get saved External IP
             try:
+                
+                print("try open")
+
                 with open(self.saved_ip, 'r') as file:
                     savedIP = file.readline().rstrip('\n')
 
