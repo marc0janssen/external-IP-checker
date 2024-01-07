@@ -88,6 +88,11 @@ class External_IP_Checker():
                     # Close the file
                     file.close()
 
+                    self.message = self.userPushover.send_message(
+                        message=f'External IP has been saved!!\n'
+                        f'Current IP = {externalIP}\n',
+                        sound=self.pushover_sound
+                    )
                     logging.info("External IP saved successfully.")
 
                 except IOError:
