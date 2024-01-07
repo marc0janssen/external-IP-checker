@@ -1,7 +1,7 @@
-# Name: External IP Checker
+# Name: Check IP based on DNS
 # Coder: Marco Janssen (twitter @marc0janssen)
 # date: 2021-11-21 11:57:46
-# update: 2021-11-21 11:57:50
+# update: 2024-01-07 13:52:00
 
 import dns.resolver
 from requests import get
