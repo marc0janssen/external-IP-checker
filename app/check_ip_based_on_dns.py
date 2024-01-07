@@ -19,7 +19,7 @@ class External_IP_Checker():
             format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
             level=logging.INFO)
 
-        self.config_file = "/config/external_IP_checker.ini"
+        self.config_file = "/config/check_ip_based_on_dns.ini"
 
         try:
             with open(self.config_file, "r") as f:
@@ -48,8 +48,8 @@ class External_IP_Checker():
                 f"creating example INI file."
             )
 
-            shutil.copyfile('/app/external_IP_checker.ini.example',
-                            '/config/external_IP_checker.ini.example')
+            shutil.copyfile('/app/check_ip_based_on_dns.ini.example',
+                            '/config/check_ip_based_on_dns.ini.example')
             sys.exit()
 
     def run(self):

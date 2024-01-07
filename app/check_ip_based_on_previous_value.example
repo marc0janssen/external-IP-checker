@@ -1,0 +1,4 @@
+[PUSHOVER]
+USER_KEY = xxxxxxxxxxxxxxx
+TOKEN_API = xxxxxxxxxxxxxxx
+SOUND = pushover
