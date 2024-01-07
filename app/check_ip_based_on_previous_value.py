@@ -71,17 +71,11 @@ class External_IP_Checker():
 
         if self.is_valid_ip(externalIP):
 
-            print("is IP")
-
             # Get saved External IP
             try:
-                
-                print("try open")
 
                 with open(self.saved_ip, 'r') as file:
                     savedIP = file.readline().rstrip('\n')
-
-                print(f"opened daved IP {savedIP}")
 
             except IOError or FileNotFoundError:
 
@@ -107,9 +101,6 @@ class External_IP_Checker():
                 except IOError:
                     logging.error("An error occurred while saving the file.")
                     sys.exit()
-
-            print(f"save = {savedIP}")
-            print(f"external = {externalIP}")
 
             if savedIP != externalIP:
                 self.message = self.userPushover.send_message(
