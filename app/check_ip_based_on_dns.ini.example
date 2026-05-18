@@ -5,3 +5,6 @@ URL = domain.org
 USER_KEY = xxxxxxxxxxxxxxx
 TOKEN_API = xxxxxxxxxxxxxxx
 SOUND = pushover
+
+[LOGGING]
+LEVEL = INFO

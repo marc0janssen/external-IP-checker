@@ -56,6 +56,9 @@ URL = domain.org
 USER_KEY = your_pushover_user_key
 TOKEN_API = your_pushover_app_token
 SOUND = pushover
+
+[LOGGING]
+LEVEL = INFO
 ```
 
 #### Change Detection Mode: `check_ip_based_on_previous_value.ini`
@@ -65,9 +68,14 @@ SOUND = pushover
 USER_KEY = your_pushover_user_key
 TOKEN_API = your_pushover_app_token
 SOUND = pushover
+
+[LOGGING]
+LEVEL = INFO
 ```
 
 A file `/config/saved_ip.txt` will be created automatically to track the previous IP.
+
+Set `LEVEL = DEBUG` if you also want to log successful matches.
 
 ## Usage
 
