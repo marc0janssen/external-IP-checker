@@ -36,9 +36,11 @@ class External_IP_Checker:
         self.pushover_user_key: Optional[str] = None
         self.pushover_token_api: Optional[str] = None
         self.pushover_sound: Optional[str] = None
+        self.log_level: str = "INFO"
         self.user_pushover: Optional[object] = None
 
         self._load_config()
+        self._configure_logging()
 
     def _load_config(self) -> None:
         """Load configuration from INI file."""
@@ -57,6 +59,11 @@ class External_IP_Checker:
                     self.config['PUSHOVER']['TOKEN_API']
                 )
                 self.pushover_sound = self.config['PUSHOVER']['SOUND']
+                self.log_level = self.config.get(
+                    'LOGGING',
+                    'LEVEL',
+                    fallback='INFO'
+                )
 
             except KeyError as e:
                 logger.error(
@@ -75,6 +82,19 @@ class External_IP_Checker:
                 f'{self.CONFIG_FILE}.example'
             )
             sys.exit(1)
+
+    def _configure_logging(self) -> None:
+        """Set logging level from configuration."""
+        level_name = self.log_level.upper()
+        level = getattr(logging, level_name, None)
+
+        if not isinstance(level, int):
+            logger.warning(
+                f"Invalid logging level '{self.log_level}', using INFO."
+            )
+            level = logging.INFO
+
+        logging.getLogger().setLevel(level)
 
     @staticmethod
     def is_valid_ip(address: str) -> bool:
@@ -166,7 +186,7 @@ class External_IP_Checker:
                 # Update saved IP
                 self._save_ip(external_ip)
             else:
-                logger.info(
+                logger.debug(
                     f'Match! - Previous IP = {saved_ip} '
                     f'- Current IP = {external_ip}'
                 )

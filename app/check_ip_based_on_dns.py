@@ -36,9 +36,11 @@ class External_IP_Checker:
         self.pushover_user_key: Optional[str] = None
         self.pushover_token_api: Optional[str] = None
         self.pushover_sound: Optional[str] = None
+        self.log_level: str = "INFO"
         self.user_pushover: Optional[object] = None
 
         self._load_config()
+        self._configure_logging()
 
     def _load_config(self) -> None:
         """Load configuration from INI file."""
@@ -54,6 +56,11 @@ class External_IP_Checker:
                 self.pushover_user_key = self.config['PUSHOVER']['USER_KEY']
                 self.pushover_token_api = self.config['PUSHOVER']['TOKEN_API']
                 self.pushover_sound = self.config['PUSHOVER']['SOUND']
+                self.log_level = self.config.get(
+                    'LOGGING',
+                    'LEVEL',
+                    fallback='INFO'
+                )
 
             except KeyError as e:
                 logger.error(
@@ -70,6 +77,19 @@ class External_IP_Checker:
             shutil.copyfile(self.EXAMPLE_FILE,
                             f'{self.CONFIG_FILE}.example')
             sys.exit(1)
+
+    def _configure_logging(self) -> None:
+        """Set logging level from configuration."""
+        level_name = self.log_level.upper()
+        level = getattr(logging, level_name, None)
+
+        if not isinstance(level, int):
+            logger.warning(
+                f"Invalid logging level '{self.log_level}', using INFO."
+            )
+            level = logging.INFO
+
+        logging.getLogger().setLevel(level)
 
     def run(self) -> None:
         """
@@ -113,7 +133,7 @@ class External_IP_Checker:
                 dns_ip = answer.to_text()
                 if dns_ip == external_ip:
                     matched = True
-                    logger.info(
+                    logger.debug(
                         f"Matches! - URL={self.url} "
                         f"- External IP={external_ip} - A-record={dns_ip}"
                     )
